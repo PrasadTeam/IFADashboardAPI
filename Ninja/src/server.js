@@ -10,7 +10,33 @@ const app = express();
 app.use(cors());
 const router = express.Router();
 
+const loginDetails = [{
+    login : "prasad",
+    agentno: "A010001",
+    password: "prasad"
+},
+{
+  login : "guru",
+  agentno: "A010003",
+  password: "guru"
+},
+{
+  login : "nirmal",
+  agentno: "A010004",
+  password: "nirmal"
+},
+{
+  login : "kumaran",
+  agentno: "A010005",
+  password: "kumaran"
+},
+{
+  login : "sreejith",
+  agentno: "A010006",
+  password: "sreejith"
+}
 
+];
 
 // this is our MongoDB database
 const dbRoute = "mongodb://localhost:27017/testdb";
@@ -55,12 +81,27 @@ router.post("/fetchIFADetails", (req, res) => {
 
 
 router.post("/validateLogin", (req, res) => {
-  console.log(req.body);
+  console.log(req.body["login"]);
+
+  // console.log(loginDetails);
   // Data.find(req.body)
   // .then(function(doc){
   //   res.send(doc);
   // });
-  res.send({"agentno":req.body["login"]});
+  let details = loginDetails.filter( person => person.login == req.body["login"] );
+
+  if(details.length != 0){
+
+      if (req.body["password"] == details[0]["password"])
+      {
+        res.send({"agentno":details[0]["agentno"]});  
+      }
+      else res.send({"agentno":null});
+      }
+  else
+  {
+    res.send({"agentno":null});  
+  }
 });
 
 // this is our get method
