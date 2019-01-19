@@ -2,11 +2,15 @@ const mongoose = require("mongoose");
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
-const Data = require("./data"); 
+const Data = require("./data");
+const cors = require('cors');
 
 const API_PORT = 3002;
 const app = express();
+app.use(cors());
 const router = express.Router();
+
+
 
 // this is our MongoDB database
 const dbRoute = "mongodb://localhost:27017/testdb";
@@ -37,6 +41,26 @@ router.post("/getData", (req, res) => {
   .then(function(doc){
     res.send(JSON.stringify(doc));
   });
+});
+
+// this is our get method
+// this method fetches all available data in our database
+router.post("/fetchIFADetails", (req, res) => {
+  console.log(req.body);
+  Data.find(req.body)
+  .then(function(doc){
+    res.send(doc);
+  });
+});
+
+
+router.post("/validateLogin", (req, res) => {
+  console.log(req.body);
+  // Data.find(req.body)
+  // .then(function(doc){
+  //   res.send(doc);
+  // });
+  res.send({"agentno":req.body["login"]});
 });
 
 // this is our get method
