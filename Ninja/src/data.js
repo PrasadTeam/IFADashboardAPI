@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-// this will be our data base's data structure 
+// this will be our data base's data structure test
 const DataSchema = new Schema(
   {
     id: String,
