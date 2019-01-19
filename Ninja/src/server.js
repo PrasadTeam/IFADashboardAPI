@@ -26,7 +26,7 @@ const loginDetails = [{
   password: "nirmal"
 },
 {
-  login : "Kumaran",
+  login : "kumaran",
   agentno: "A010005",
   password: "kumaran"
 },
